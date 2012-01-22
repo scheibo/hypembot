@@ -13,8 +13,8 @@ cache for you.
 
 ## Install
 
-  $ [sudo] gem install hypembot
-  $ hypembot
+    $ [sudo] gem install hypembot
+    $ hypembot
 
 Works on Mac OSX Lion. Uses kqueue by default.
 
