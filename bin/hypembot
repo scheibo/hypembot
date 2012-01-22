@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+lib = File.expand_path('../../lib', __FILE__)
+$:.unshift(lib) if File.directory?(lib) && !$:.include?(lib)
+require 'hypembot'
+require 'optparse'
+
+opts = {}
+ARGV.options do |argv|
+  argv.banner = "Usage: hypembot [options]"
+  argv.on("-s", "--source", String, "Path of the cache to watch") { |s| opts[:source] = s }
+  argv.on("-d", "--directory", String, "Path of the directory to copy music to") { |d| opts[:directory] = d }
+  argv.on("-b", "--bitrate", Integer, "Minimum bitrate of a song") { |b| opts[:bitrate] = b }
+  argv.on("-l", "--length", Integer, "Minimum length of a song") { |l| opts[:length] = l }
+end
+
+Process.daemon
+Hypembot::Bot.new(opts).start
