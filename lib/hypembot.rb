@@ -17,7 +17,7 @@ class Hypembot::Bot
                                :scanner => :em,
                                :pre_load => true,
                                :glob => 'f_*',
-                               :stable => 30,
+                               :stable => 18,
                                :interval => 10)
   end
 
