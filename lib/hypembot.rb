@@ -60,7 +60,7 @@ class Hypembot::Bot
     info[:length] = format_time(mp3.length)
     info[:bitrate] = "#{mp3.bitrate} kbps" + (mp3.vbr ? "" : " (VBR)")
 
-    growl(info)
+    growl(info) if Growl.installed?
     FileUtils.cp(file, filename(info))
   end
 
