@@ -51,10 +51,12 @@ class Hypembot::Bot
   end
 
   def process(file, mp3)
-    info = {}
-    info[:title] = mp3.tag.title.strip.empty? ? "Untitled" : mp3.tag.title.strip
-    info[:artist] = mp3.tag.artist.strip
-    info[:album] = mp3.tag.album.strip
+    info = Hash.new("")
+    if mp3.tag
+      info[:title] = clean(mp3.tag.title).empty? ? "Untitled" : clean(mp3.tag.title)
+      info[:artist] = clean(mp3.tag.artist).empty? ? "Unknown Artist" : clean(mp3.tag.artist)
+      info[:album] = clean(mp3.tag.album)
+    end
     info[:length] = format_time(mp3.length)
     info[:bitrate] = "#{mp3.bitrate} kbps" + (mp3.vbr ? "" : " (VBR)")
 
@@ -63,19 +65,18 @@ class Hypembot::Bot
   end
 
   def growl(info)
-    message = ""
-    if !info[:artist].empty? and !info[:album].empty?
-      message << "#{info[:artist]}\n#{info[:album]}\n"
-    elsif info[:album].empty?
-      message << "#{info[:artist]}\n"
-    # if we have album but no artist, don't show anything
-    end
-    message << "(#{info[:length]}) - #{info[:bitrate]}"
+    message = "#{info[:artist]}"
+    message << "- #{info[:album]}" unless info[:album].empty?
+    message << "\n(#{info[:length]}) - #{info[:bitrate]}"
 
     Growl.notify do |n|
       n.title = info[:title]
       n.message = message
     end
+  end
+
+  def clean(tag)
+    tag ? tag.strip : ""
   end
 
   def format_time(s)
@@ -87,6 +88,8 @@ class Hypembot::Bot
   def filename(info)
     title = info[:title].split.join("_")
     artist = info[:artist].split.join("_")
-    File.expand_path("#{title}-#{artist}.mp3", @dir)
+    name = "#{title}-#{artist}"
+    name << "-#{Time.now.to_i}" if title == "Untitled" and artist == "Unknown_Artist"
+    File.expand_path("#{name}.mp3", @dir)
   end
 end
