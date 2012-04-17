@@ -1,4 +1,5 @@
 module Hypembot; end
+require 'rubygems'
 require 'hypembot/version'
 require 'directory_watcher'
 require 'eventmachine'

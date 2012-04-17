@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "hypembot"
 
+  s.add_dependency "daemons"
   s.add_dependency "directory_watcher"
   s.add_dependency "eventmachine"
   s.add_dependency "growl"

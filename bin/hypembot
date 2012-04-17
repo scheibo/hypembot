@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
 lib = File.expand_path('../../lib', __FILE__)
 $:.unshift(lib) if File.directory?(lib) && !$:.include?(lib)
+require 'rubygems'
 require 'hypembot'
 require 'optparse'
+require 'daemons'
 
 opts = {}
 ARGV.options do |argv|
@@ -13,5 +15,5 @@ ARGV.options do |argv|
   argv.on("-l", "--length", Integer, "Minimum length of a song") { |l| opts[:length] = l }
 end
 
-Process.daemon
+Daemons.daemonize(:app_name => 'hypembot')
 Hypembot::Bot.new(opts).start
