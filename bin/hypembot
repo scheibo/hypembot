@@ -9,10 +9,10 @@ require 'daemons'
 opts = {}
 ARGV.options do |argv|
   argv.banner = "Usage: hypembot [options]"
-  argv.on("-s", "--source", String, "Path of the cache to watch") { |s| opts[:source] = s }
-  argv.on("-d", "--directory", String, "Path of the directory to copy music to") { |d| opts[:directory] = d }
-  argv.on("-b", "--bitrate", Integer, "Minimum bitrate of a song") { |b| opts[:bitrate] = b }
-  argv.on("-l", "--length", Integer, "Minimum length of a song") { |l| opts[:length] = l }
+  argv.on("-s", "--source [string]", String, "Path of the cache to watch") { |s| opts[:source] = s }
+  argv.on("-d", "--directory [string]", String, "Path of the directory to copy music to") { |d| opts[:directory] = d }
+  argv.on("-b", "--bitrate [int]", Integer, "Minimum bitrate of a song") { |b| opts[:bitrate] = b }
+  argv.on("-l", "--length [int]", Integer, "Minimum length of a song") { |l| opts[:length] = l }
 end
 
 Daemons.daemonize(:app_name => 'hypembot')
