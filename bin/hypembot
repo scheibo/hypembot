@@ -13,7 +13,7 @@ ARGV.options do |argv|
   argv.on("-d", "--directory [string]", String, "Path of the directory to copy music to") { |d| opts[:directory] = d }
   argv.on("-b", "--bitrate [int]", Integer, "Minimum bitrate of a song") { |b| opts[:bitrate] = b }
   argv.on("-l", "--length [int]", Integer, "Minimum length of a song") { |l| opts[:length] = l }
-end
+end.parse!
 
 Daemons.daemonize(:app_name => 'hypembot')
 Hypembot::Bot.new(opts).start
