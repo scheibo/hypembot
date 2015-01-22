@@ -1,5 +1,7 @@
 # hypembot
 
+![unmaintained](http://img.shields.io/badge/status-unmaintained-lightgrey.svg)
+
 Manually downloading songs from The Hype Machine too difficult? Wish you could
 download that song from Soundcloud? Since the browser stores songs in its cache
 in order to play them, simply start `hypembot` and it will monitor the cache,
